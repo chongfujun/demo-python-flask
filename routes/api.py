@@ -39,8 +39,8 @@ def import_tasks():
     try:
         tasks = data_importer.process_exported_data(xml_content)
         return f'Imported {len(tasks)} tasks'
-    except Exception as e:
-        return f'Error: {str(e)}', 400
+    except Exception:
+        return 'Error: Invalid input', 400
 
 
 @api_bp.route('/feed/parse', methods=['GET'])
@@ -50,8 +50,8 @@ def parse_feed():
     try:
         items = rss_parser.fetch_and_parse(url)
         return {'items': items}
-    except Exception as e:
-        return {'error': str(e)}, 400
+    except Exception:
+        return {'error': 'Failed to fetch feed'}, 400
 
 
 @api_bp.route('/notify', methods=['POST'])
@@ -63,8 +63,8 @@ def send_notification():
     try:
         email_notifier.send_notification(to, subject, body)
         return {'status': 'sent'}
-    except Exception as e:
-        return {'error': str(e)}, 400
+    except Exception:
+        return {'error': 'Failed to send notification'}, 400
 
 
 @api_bp.route('/cache/set', methods=['POST'])
