@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<h3>System Information</h3>
+<p>Git Version: {{ git_version }}</p>
+
+<h4>Disk Usage</h4>
+<pre>{{ disk_usage }}</pre>
+
+<h4>System Info</h4>
+<pre>{{ system_info[:500] }}</pre>
+
+<h4>Analytics</h4>
+<p>Total tracked events: {{ analytics|length }}</p>
+{% endblock %}

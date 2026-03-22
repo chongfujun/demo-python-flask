@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results</h2>
+<p>Searching for: "{{ query }}"</p>
+
+{% if posts %}
+    <p>Found {{ posts|length }} results:</p>
+    {% for post in posts %}
+    <article class="post">
+        <h3><a href="{{ url_for('blog.view_post', slug=post.slug) }}">{{ post.title }}</a></h3>
+        <p>{{ post.content[:150] }}...</p>
+    </article>
+    {% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+{% endblock %}
