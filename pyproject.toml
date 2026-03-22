@@ -1,0 +1,20 @@
+[project]
+name = "demo-python-flask"
+version = "1.0.0"
+description = "Flask Blog Demo"
+requires-python = ">=3.13"
+dependencies = [
+    "flask",
+    "flask-sqlalchemy",
+    "ldap3",
+    "pyyaml",
+    "requests",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
