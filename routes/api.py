@@ -43,10 +43,24 @@ def import_tasks():
         return 'Error: Invalid input', 400
 
 
+# Pre-defined RSS feed sources - users can only select from these
+FEED_SOURCES = {
+    'tech': 'https://feeds.bbci.co.uk/news/technology/rss.xml',
+    'world': 'https://feeds.bbci.co.uk/news/world/rss.xml',
+    'science': 'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml',
+}
+
+
 @api_bp.route('/feed/parse', methods=['GET'])
 def parse_feed():
-    """Parse RSS feed from external URL"""
-    url = request.args.get('url', 'http://localhost/feed.xml')
+    """Parse RSS feed from pre-defined sources"""
+    feed_name = request.args.get('feed', 'tech')
+
+    # Validate feed name - only allow predefined sources
+    if feed_name not in FEED_SOURCES:
+        return {'error': 'Invalid feed name. Available: ' + ', '.join(FEED_SOURCES.keys())}, 400
+
+    url = FEED_SOURCES[feed_name]
     try:
         items = rss_parser.fetch_and_parse(url)
         return {'items': items}
